@@ -38,6 +38,7 @@
 					</div-->
 					<h3>Math 32A: Multivariate Calculus</h3>
 					<p>
+						(with touchscreen)
 						<small>Taught by  <a href="https://www.math.ucla.edu/~pspaas/">Peter Spaas</a> and TA'd by <a href="https://jaume.dedios.cat">Jaume de Dios</a> (that's me!)</small>
 					</p>
 					<table>
@@ -176,9 +177,16 @@
 			var that = this
 			this.dom.addEventListener('mousedown', e =>{that.startNewLine(e.offsetX,e.offsetY)})
 			this.dom.addEventListener('mousemove', e =>{that.continueLine(e.offsetX,e.offsetY)})
-			window.addEventListener('mouseup', e =>{this.endLine(e.offsetX,e.offsetY)})
+			window.addEventListener('mouseup', e =>{that.endLine(e.offsetX,e.offsetY)})
+			this.dom.addEventListener('touchstart', e =>{if(evt.touches[0].touchType == "stylus") 
+															that.startNewLine(e.offsetX,e.offsetY)})
+			this.dom.addEventListener('touchmove', e =>{if(evt.touches[0].touchType == "stylus") 
+															that.continueLine(e.offsetX,e.offsetY)})
+			window.addEventListener('touchend', e =>{if(evt.touches[0].touchType == "stylus") 
+															that.endLine(e.offsetX,e.offsetY)})
 		}
 	}
+
 
 	OverlayWhiteboard.prototype.redraw = function(){
 		this.lines = {}
