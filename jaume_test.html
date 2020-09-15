@@ -38,7 +38,7 @@
 					</div-->
 					<h3>Math 32A: Multivariate Calculus</h3>
 					<p>
-						(with touchscreen)
+						(clientX)
 						<small>Taught by  <a href="https://www.math.ucla.edu/~pspaas/">Peter Spaas</a> and TA'd by <a href="https://jaume.dedios.cat">Jaume de Dios</a> (that's me!)</small>
 					</p>
 					<table>
@@ -178,12 +178,11 @@
 			this.dom.addEventListener('mousedown', e =>{that.startNewLine(e.offsetX,e.offsetY)})
 			this.dom.addEventListener('mousemove', e =>{that.continueLine(e.offsetX,e.offsetY)})
 			window.addEventListener('mouseup', e =>{that.endLine(e.offsetX,e.offsetY)})
-			this.dom.addEventListener('touchstart', e =>{alert(e.touches[0].touchType); 
-														if(e.touches[0].touchType == "stylus") 
-															that.startNewLine(e.offsetX,e.offsetY)})
-			this.dom.addEventListener('touchmove', e =>{if(e.touches[0].touchType == "stylus") 
-															that.continueLine(e.offsetX,e.offsetY)})
-			window.addEventListener('touchend', e =>{ that.endLine(e.offsetX,e.offsetY)})
+			this.dom.addEventListener('touchstart', e =>{console.log(e);if(e.touches[0].touchType == "stylus") 
+															that.startNewLine(e.clientX,e.clientY)})
+			this.dom.addEventListener('touchmove', e =>{console.log(e);if(e.touches[0].touchType == "stylus") 
+															that.continueLine(e.clientX,e.clientY)})
+			window.addEventListener('touchend', e =>{ that.endLine(e.clientX,e.clientY)})
 		}
 	}
 
@@ -203,6 +202,7 @@
 	OverlayWhiteboard.prototype.startNewLine = function(x,y, 
 														stroke = {'width':1, 'color':'#000000' },
 														fill = 'none'){
+		console.log([x,y])
 		this.currentCoords = [[x,y]]
 		this.currentLine = {'type':'polyline', 
 			 				'hash': randomId(),
@@ -217,6 +217,7 @@
 	} 
 
 	OverlayWhiteboard.prototype.continueLine = function(x,y){
+		console.log([x,y])
 		if(this.isDrawing){
 			this.currentCoords.push([x,y])
 			this.lines[this.currentLine.hash].attr('points', this.currentCoords)
