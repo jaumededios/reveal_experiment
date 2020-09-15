@@ -167,24 +167,25 @@
 			});
 
 
-	function OverlayWhiteboard(dom, canDraw=false, data = []){
+	function OverlayWhiteboard(dom, canDraw=false, data = [], supersampling = 5){
+		this.ss = supersampling
 		this.data = data
 		this.dom = dom
-		this.draw = SVG(this.dom).size(970*5, 700*5)
-		this.dom.setAttribute("viewBox", "0 0 "+(970*5)+" "+(700*5)); 
+		this.draw = SVG(this.dom).size(970*this.ss, 700*this.ss)
+		this.dom.setAttribute("viewBox", "0 0 "+(970*this.ss)+" "+(700*this.ss)); 
 		this.lines = {}
 		console.log(this.dom)
 		if(canDraw){
 			var that = this
-			this.dom.addEventListener('mousedown', e =>{that.startNewLine(e.offsetX*5,e.offsetY*5)})
-			this.dom.addEventListener('mousemove', e =>{that.continueLine(e.offsetX*5,e.offsetY*5)})
+			this.dom.addEventListener('mousedown', e =>{that.startNewLine(e.offsetX*this.ss,e.offsetY*this.ss)})
+			this.dom.addEventListener('mousemove', e =>{that.continueLine(e.offsetX*this.ss,e.offsetY*this.ss)})
 			window.addEventListener('mouseup', e =>{that.endLine(e.offsetX,e.offsetY)})
 			this.dom.addEventListener('touchstart', e =>{if(e.touches[0].touchType == "stylus"||true) {
 															rect = e.touches[0].target.getBoundingClientRect()
 															x0 = rect.x; w = rect.width
 															y0 = rect.y; h = rect.height
-															x = Math.round((e.touches[0].clientX-x0)/w*960*5*20)/20
-															y = Math.round((e.touches[0].clientY-y0)/h*700*5*20)/20
+															x = Math.round((e.touches[0].clientX-x0)/w*960*this.ss*10)/10
+															y = Math.round((e.touches[0].clientY-y0)/h*700*this.ss*10)/10
 															console.log('rect')
 															console.log(rect)
 															that.startNewLine(x,y)
@@ -193,8 +194,9 @@
 															rect = e.touches[0].target.getBoundingClientRect()
 															x0 = rect.x; w = rect.width
 															y0 = rect.y; h = rect.height
-															x = Math.round((e.touches[0].clientX-x0)/w*960*5*20)/20
-															y = Math.round((e.touches[0].clientY-y0)/h*700*5*20)/20
+															console.log(e.touches[0])
+															x = Math.round((e.touches[0].clientX-x0)/w*960*this.ss*20)/20
+															y = Math.round((e.touches[0].clientY-y0)/h*700*this.ss*20)/20
 															console.log(x,y)
 															if(! that.isDrawing)
 																that.startNewLine(x,y)
@@ -222,7 +224,7 @@
 	}
 
 	OverlayWhiteboard.prototype.startNewLine = function(x,y, 
-														stroke = {'width':1, 'color':'#000000' },
+														stroke = {'width':6, 'color':'#000000' },
 														fill = 'none'){
 		console.log([x,y])
 		this.currentCoords = [[x,y]]
