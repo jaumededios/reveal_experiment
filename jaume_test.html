@@ -178,7 +178,7 @@
 			this.dom.addEventListener('mousedown', e =>{that.startNewLine(e.offsetX,e.offsetY)})
 			this.dom.addEventListener('mousemove', e =>{that.continueLine(e.offsetX,e.offsetY)})
 			window.addEventListener('mouseup', e =>{that.endLine(e.offsetX,e.offsetY)})
-			this.dom.addEventListener('touchstart', e =>{console.log(e.touches[0].touchType); 
+			this.dom.addEventListener('touchstart', e =>{alert(e.touches[0].touchType); 
 														if(e.touches[0].touchType == "stylus") 
 															that.startNewLine(e.offsetX,e.offsetY)})
 			this.dom.addEventListener('touchmove', e =>{if(e.touches[0].touchType == "stylus") 
