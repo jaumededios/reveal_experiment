@@ -38,7 +38,7 @@
 					</div-->
 					<h3>Math 32A: Multivariate Calculus</h3>
 					<p>
-						(yet again)
+						(with 10x supersampling)
 						<small>Taught by  <a href="https://www.math.ucla.edu/~pspaas/">Peter Spaas</a> and TA'd by <a href="https://jaume.dedios.cat">Jaume de Dios</a> (that's me!)</small>
 					</p>
 					<table>
@@ -182,8 +182,8 @@
 															rect = e.touches[0].target.getBoundingClientRect()
 															x0 = rect.x; w = rect.width
 															y0 = rect.y; h = rect.height
-															x = Math.round((e.touches[0].clientX-x0)/w*960)
-															y = Math.round((e.touches[0].clientY-y0)/h*700)
+															x = Math.round((e.touches[0].clientX-x0)/w*9600)/10
+															y = Math.round((e.touches[0].clientY-y0)/h*7000)/10
 															console.log('rect')
 															console.log(rect)
 															that.startNewLine(x,y)
@@ -192,8 +192,8 @@
 															rect = e.touches[0].target.getBoundingClientRect()
 															x0 = rect.x; w = rect.width
 															y0 = rect.y; h = rect.height
-															x = Math.round((e.touches[0].clientX-x0)/w*960)
-															y = Math.round((e.touches[0].clientY-y0)/h*700)
+															x = Math.round((e.touches[0].clientX-x0)/w*9600)/10
+															y = Math.round((e.touches[0].clientY-y0)/h*7000)/10
 															that.continueLine(x,y)
 														}})
 			window.addEventListener('touchend', e =>{ that.endLine()})
