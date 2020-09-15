@@ -224,8 +224,9 @@
 	}
 
 	OverlayWhiteboard.prototype.startNewLine = function(x,y, 
-														stroke = {'width':6, 'color':'#000000' },
-														fill = 'none'){
+														stroke = {'width':10, 'color':'#000000'},
+														fill = 'none',
+														css = {'stroke-linejoin':'round'}){
 		console.log([x,y])
 		this.currentCoords = [[x,y]]
 		this.currentLine = {'type':'polyline', 
@@ -235,7 +236,9 @@
 			 				'fill':fill}
 		this.data.push(this.currentLine)
 		svg_rep = this.draw[this.currentLine.type](...this.currentLine.coords)
-					  .stroke(this.currentLine.stroke).fill(this.currentLine.fill)
+					  .stroke(this.currentLine.stroke)
+					  .fill(this.currentLine.fill)
+					  .css(css)
 		this.lines[this.currentLine.hash] = svg_rep
 		this.isDrawing = true
 	} 
