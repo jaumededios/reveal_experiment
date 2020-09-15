@@ -179,16 +179,17 @@
 			this.dom.addEventListener('mousemove', e =>{that.continueLine(e.offsetX,e.offsetY)})
 			window.addEventListener('mouseup', e =>{that.endLine(e.offsetX,e.offsetY)})
 			this.dom.addEventListener('touchstart', e =>{console_string(e);if(e.touches[0].touchType == "stylus") 
-															that.startNewLine(e.clientX,e.clientY)})
+															that.startNewLine(e.touches[0].clientX,e.touches[0].clientY)})
 			this.dom.addEventListener('touchmove', e =>{console_string(e);if(e.touches[0].touchType == "stylus") 
-															that.continueLine(e.clientX,e.clientY)})
-			window.addEventListener('touchend', e =>{ that.endLine(e.clientX,e.clientY)})
+															that.continueLine(e.touches[0].clientX,e.touches[0].clientY)})
+			window.addEventListener('touchend', e =>{ that.endLine()})
 		}
 	}
 
 	function console_string(x){
 		console.log(x.touches[0].touchType)
 		console.log(x.touches[0].touchType=='stylus')
+		console.log(x)
 	}
 	OverlayWhiteboard.prototype.redraw = function(){
 		this.lines = {}
