@@ -38,7 +38,7 @@
 					</div-->
 					<h3>Math 32A: Multivariate Calculus</h3>
 					<p>
-						(with 5x10 supersampling)
+						(with 5x20 supersampling working)
 						<small>Taught by  <a href="https://www.math.ucla.edu/~pspaas/">Peter Spaas</a> and TA'd by <a href="https://jaume.dedios.cat">Jaume de Dios</a> (that's me!)</small>
 					</p>
 					<table>
@@ -171,19 +171,20 @@
 		this.data = data
 		this.dom = dom
 		this.draw = SVG(this.dom).size(970*5, 700*5)
+		this.dom.setAttribute("viewBox", "0 0 "+(970*5)+" "+(700*5)); 
 		this.lines = {}
 		console.log(this.dom)
 		if(canDraw){
 			var that = this
-			this.dom.addEventListener('mousedown', e =>{that.startNewLine(e.offsetX,e.offsetY)})
-			this.dom.addEventListener('mousemove', e =>{that.continueLine(e.offsetX,e.offsetY)})
+			this.dom.addEventListener('mousedown', e =>{that.startNewLine(e.offsetX*5,e.offsetY*5)})
+			this.dom.addEventListener('mousemove', e =>{that.continueLine(e.offsetX*5,e.offsetY*5)})
 			window.addEventListener('mouseup', e =>{that.endLine(e.offsetX,e.offsetY)})
 			this.dom.addEventListener('touchstart', e =>{if(e.touches[0].touchType == "stylus"||true) {
 															rect = e.touches[0].target.getBoundingClientRect()
 															x0 = rect.x; w = rect.width
 															y0 = rect.y; h = rect.height
-															x = Math.round((e.touches[0].clientX-x0)/w*960*100)/100
-															y = Math.round((e.touches[0].clientY-y0)/h*700*100)/100
+															x = Math.round((e.touches[0].clientX-x0)/w*960*5*20)/20
+															y = Math.round((e.touches[0].clientY-y0)/h*700*5*20)/20
 															console.log('rect')
 															console.log(rect)
 															that.startNewLine(x,y)
@@ -192,8 +193,9 @@
 															rect = e.touches[0].target.getBoundingClientRect()
 															x0 = rect.x; w = rect.width
 															y0 = rect.y; h = rect.height
-															x = Math.round((e.touches[0].clientX-x0)/w*960*100)/100
-															y = Math.round((e.touches[0].clientY-y0)/h*700*100)/100
+															x = Math.round((e.touches[0].clientX-x0)/w*960*5*20)/20
+															y = Math.round((e.touches[0].clientY-y0)/h*700*5*20)/20
+															console.log(x,y)
 															if(! that.isDrawing)
 																that.startNewLine(x,y)
 															that.continueLine(x,y)
